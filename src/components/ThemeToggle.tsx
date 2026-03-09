@@ -41,9 +41,12 @@ const ThemeToggle = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    const audio = new Audio("/light-switch.mp3");
-    audio.volume = 0.5;
-    audio.play();
+    const video = document.querySelector("video");
+    if (!video?.muted) {
+      const audio = new Audio("/light-switch.mp3");
+      audio.volume = 0.5;
+      audio.play();
+    }
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
