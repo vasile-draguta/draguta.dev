@@ -1,6 +1,5 @@
 ---
 import ThemeToggle from "@/components/ThemeToggle";
-import SoundToggle from "@/components/SoundToggle";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -10,7 +9,6 @@ const currentYear = new Date().getFullYear();
     <p>© {currentYear} draguta</p>
   </div>
   <div class="flex items-center gap-2">
-    <SoundToggle client:load />
     <ThemeToggle client:load />
   </div>
 </footer>

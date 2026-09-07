@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MoonIcon, SunIcon } from "@phosphor-icons/react";
+import { MoonIcon, SunIcon } from "@/components/icons";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 const ThemeToggle = () => {
