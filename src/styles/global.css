@@ -9,12 +9,15 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Colors - Light mode defaults */
-  --color-background: #ffffff;
+  /* Off-white ground: ~15:1 against the foreground, leaving the rest of the
+     headroom for the background video. Muted + borders are darkened to hold
+     their contrast on the darker ground and under the video. */
+  --color-background: #e0e0dd;
   --color-foreground: #0a0a0a;
-  --color-muted: #646464;
-  --color-border: rgba(0, 0, 0, 0.1);
-  --color-button-bg: rgba(0, 0, 0, 0.1);
-  --color-button-hover: rgba(0, 0, 0, 0.2);
+  --color-muted: #484843;
+  --color-border: rgba(0, 0, 0, 0.14);
+  --color-button-bg: rgba(0, 0, 0, 0.12);
+  --color-button-hover: rgba(0, 0, 0, 0.22);
   --color-accent: #f59e0b;
   --color-accent-hover: #d97706;
 }
@@ -42,6 +45,33 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+  Background video (markup in VideoBackground.astro). Light mode softens the
+  video's contrast so it never fights the foreground and lays a faint scrim
+  over the brightest frames; dark mode shows it untouched.
+*/
+#bg-video {
+  opacity: 0.45;
+  filter: contrast(0.85) brightness(1.02);
+}
+
+#video-scrim {
+  background-color: color-mix(
+    in oklab,
+    var(--color-background) 8%,
+    transparent
+  );
+}
+
+.dark #bg-video {
+  opacity: 0.3;
+  filter: none;
+}
+
+.dark #video-scrim {
+  background-color: transparent;
 }
 
 :focus-visible {
