@@ -1,14 +1,12 @@
 ---
-import ThemeToggle from "@/components/ThemeToggle";
+import KeyShortcuts from "@/components/KeyShortcuts";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="py-8 mt-auto flex items-center justify-between">
-  <div class="text-muted text-sm font-mono">
-    <p>© {currentYear} draguta</p>
-  </div>
-  <div class="flex items-center gap-2">
-    <ThemeToggle client:load />
-  </div>
+<footer
+  class="py-8 mt-auto flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+>
+  <p class="text-muted text-sm font-mono">© {currentYear} draguta</p>
+  <KeyShortcuts client:load />
 </footer>

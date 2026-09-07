@@ -8,10 +8,6 @@
   --font-display: "Charm", cursive;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Colors - Light mode defaults */
-  /* Off-white ground: ~15:1 against the foreground, leaving the rest of the
-     headroom for the background video. Muted + borders are darkened to hold
-     their contrast on the darker ground and under the video. */
   --color-background: #e0e0dd;
   --color-foreground: #0a0a0a;
   --color-muted: #484843;
@@ -47,11 +43,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/*
-  Background video (markup in VideoBackground.astro). Light mode softens the
-  video's contrast so it never fights the foreground and lays a faint scrim
-  over the brightest frames; dark mode shows it untouched.
-*/
+
 #bg-video {
   opacity: 0.45;
   filter: contrast(0.85) brightness(1.02);
@@ -71,6 +63,20 @@ body {
 }
 
 .dark #video-scrim {
+  background-color: transparent;
+}
+
+body.zen #site-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.zen #bg-video {
+  opacity: 1;
+  filter: none;
+}
+
+body.zen #video-scrim {
   background-color: transparent;
 }
 
