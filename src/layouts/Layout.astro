@@ -21,10 +21,7 @@ const {
   preloadImages = [],
 } = Astro.props;
 
-const canonicalURL = new URL(
-  Astro.url.pathname,
-  Astro.site || "https://draguta.dev"
-);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === "draguta.dev" ? title : `${title} | draguta.dev`;
 ---
 
@@ -94,22 +91,28 @@ const fullTitle = title === "draguta.dev" ? title : `${title} | draguta.dev`;
     <ClientRouter />
     <script is:inline>
       (function () {
+        var query = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function preference() {
+          var stored = localStorage.getItem("theme");
+          return stored === "light" || stored === "dark" ? stored : "system";
+        }
+
         function applyTheme() {
-          const theme =
-            localStorage.getItem("theme") ||
-            (window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light");
-          if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-          } else {
-            document.documentElement.classList.remove("dark");
-          }
+          var pref = preference();
+          var dark = pref === "dark" || (pref === "system" && query.matches);
+          document.documentElement.classList.toggle("dark", dark);
         }
 
         applyTheme();
 
-        document.addEventListener("astro:after-swap", applyTheme);
+        if (!window.__themeInit) {
+          window.__themeInit = true;
+          query.addEventListener("change", function () {
+            if (preference() === "system") applyTheme();
+          });
+          document.addEventListener("astro:after-swap", applyTheme);
+        }
       })();
     </script>
   </head>
